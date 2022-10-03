@@ -1718,44 +1718,16 @@ let client;
 function checkAuthStatus() {
   // This is set on the window in `index.html`.
   if (Object.keys(get("token")).length) {
-    return get("expireAt") > Date.now() ? false : true;
+    return get("expireAt") < Date.now() ? false : true;
   } else {
     return false;
   }
 }
 
-// export function getAuthInstance() {
-//   return gapi.auth2.getAuthInstance();
-// }
-
 // Can only be called if the user is signed in.
 function getAccessToken() {
   return get("token");
 }
-
-// export function onSignInChange(callback) {
-//   getAuthInstance().isSignedIn.listen(callback);
-// }
-
-// export async function userIsSignedIn() {
-//   const isSignedIn = await checkAuthStatus();
-
-//   await new Promise((resolve, reject) => {
-//     gapi.signin2.render('google-signin2', {
-//       width: 240,
-//       height: 50,
-//       longtitle: true,
-//       theme: 'dark',
-//       onsuccess: resolve,
-//       onfailure: reject,
-//     });
-//     // If the user is already signed in, render the button anyway but
-//     // resolve immediately. (We render in case the user signs out.)
-//     if (isSignedIn) {
-//       resolve();
-//     }
-//   });
-// }
 
 function signIn() {
   client.requestAccessToken();
@@ -1764,9 +1736,6 @@ function signIn() {
 async function signOut(handleSignInChange) {
   localStorage.removeItem("token");
   handleSignInChange(false);
-  google.accounts.oauth2.revoke(get("token"), (done) => {
-    if (done.error) ;
-  });
 }
 
 function signInCallback(handleSignInChange) {
@@ -3729,8 +3698,7 @@ async function onSubmit(event) {
   event.preventDefault();
 
   if (!checkAuthStatus()) {
-    // document.getElementById('signin-toggle').click();
-    signOut();
+    signOut(handleSignInChange);
   }
 
   // Account for cases where the user kept the tab open for more than
