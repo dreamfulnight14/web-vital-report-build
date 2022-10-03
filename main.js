@@ -1717,6 +1717,7 @@ let client;
 
 function checkAuthStatus() {
   // This is set on the window in `index.html`.
+  console.log("diff", get('expireAt'), Date.now(), get('expireAt') - Date.now()); 
   if (Object.keys(get("token")).length) {
     return get("expireAt") < Date.now() ? false : true;
   } else {
@@ -1747,7 +1748,7 @@ function signInCallback(handleSignInChange) {
         console.log(response.error);
       } else {
         set("token", response.access_token);
-        set("expireAt", Date.now() + Number(response.expires_in));
+        set("expireAt", Date.now() + Number(response.expires_in) * 1000);
         handleSignInChange(true);
       }
     },
@@ -3699,6 +3700,8 @@ async function onSubmit(event) {
 
   if (!checkAuthStatus()) {
     signOut(handleSignInChange);
+    alert('token expired');
+    return;
   }
 
   // Account for cases where the user kept the tab open for more than
