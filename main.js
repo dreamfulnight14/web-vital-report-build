@@ -1770,7 +1770,6 @@ async function signOut(handleSignInChange) {
 }
 
 function signInCallback(handleSignInChange) {
-  console.log("client_id", clientId);
   client = google.accounts.oauth2.initTokenClient({
     client_id: clientId,
     scope: "https://www.googleapis.com/auth/analytics.readonly",
@@ -1778,9 +1777,7 @@ function signInCallback(handleSignInChange) {
       if (response.error) {
         console.log(response.error);
       } else {
-        console.log("singInCallbck", response, handleSignInChange);
         set("token", response.access_token);
-        console.log('expire token', response.access_token, response.expires_in);
         set("expireAt", Date.now() + Number(response.expires_in));
         handleSignInChange(true);
       }
@@ -3548,7 +3545,6 @@ let state = {};
 const listenerMap = new Map();
 
 function initState(initializer) {
-  console.log("initState state", get("state"));
   Object.assign(state, initializer(get("state")));
   document.addEventListener("visibilitychange", () => set("state", state));
   return state;
@@ -3748,7 +3744,6 @@ async function onSubmit(event) {
   const viewOpts = reportState[`opts:${reportState.viewId}`];
   const reportOpts = validateOpts(viewOpts && viewOpts.active ? viewOpts : {});
   const startTime = performance.now();
-  console.log(viewOpts, reportOpts);
 
   let report;
   let error;
@@ -3804,8 +3799,6 @@ function renderOpts(selected, options) {
 
 const app = (state, data) => {
   const opts = validateOpts(state[`opts:${state.viewId}`]);
-  console.log("app state", state);
-  console.log("app opts", opts);
   const showCustomDateRangeSelect = state.dateRange < 0;
   const showCustomSegmentsSelect = !state.segmentsRecommended;
 
@@ -4015,7 +4008,6 @@ function queueRender() {
 }
 
 async function handleSignInChange(isSignedIn) {
-  console.log("isSingined", isSignedIn);
   const signInToggle = document.getElementById("signin-toggle");
   const toggle = isSignedIn ? "Out" : "In";
   const classes = ["isSignedIn", "isSignedOut"];
