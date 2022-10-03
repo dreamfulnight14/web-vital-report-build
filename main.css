@@ -1,0 +1,873 @@
+
+ @import url(https://fonts.googleapis.com/css?family=Roboto:500);
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+:root {
+  --vgap: 1.5rem;
+  --vgap-lg: 2rem;
+  --hgap: 1.25rem;
+
+  --accent-color: hsl(218, 88%, 61%);
+  --accent-color-active: hsl(218, 88%, 50%);
+  --error-color: hsl(0, 60%, 50%);
+  --material-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (min-width: 48em) {
+  :root {
+    --vgap: 2rem;
+    --vgap-lg: 3rem;
+    --hgap: 1.5rem;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  background: hsl(30, 15%, 95%);
+  font: 1em/1.5 system-ui, sans-serif;
+  margin: 0;
+}
+h2 {
+  font-size: 2em;
+  font-weight: 400;
+}
+@media (min-width: 48em) {
+  h2 {
+    font-size: 2.25em;
+    font-weight: 300;
+  }
+}
+h1,
+h2,
+h3 {
+  font-family: Google Sans, system-ui, sans-serif;
+  line-height: 1.2;
+}
+a {
+  color: var(--accent-color);
+}
+a:hover,
+a:focus,
+a:active {
+  color: var(--accent-color-active);
+}
+i {
+  font-family: sans-serif;
+  font-size: 1.2em;
+  font-style: normal;
+  font-weight: normal;
+}
+b {
+  font-weight: normal;
+  font-size: 1.2em;
+}
+[hidden] {
+  display: none;
+}
+.center {
+  display: flex;
+  justify-content: center;
+}
+#Countrycounts,
+#Pagecounts {
+  margin-top: 10px;
+  width: 100px;
+  height: 40px;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.AlertContainer {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.Alert {
+  align-items: flex-start;
+  background: var(--error-color);
+  box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.4);
+  color: #fff;
+  display: flex;
+  left: 0;
+  padding: var(--vgap) var(--hgap);
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate3d(0, -100%, 0);
+}
+.Alert--isTransitioning {
+  transition: transform .2s var(--material-easing);
+}
+.Alert--isActive {
+  transform: translate3d(0, 0%, 0);
+}
+.Alert-icon {
+  font-size: 3em;
+}
+.Alert-close {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 2em;
+  opacity: .4;
+  padding: .25em;
+}
+.Alert-close:active,
+.Alert-close:focus,
+.Alert-close:hover {
+  opacity: 1;
+  outline: 0;
+}
+.Alert-body {
+  flex: 1 0 0%;
+  margin: 0 var(--hgap);
+  word-break: break-word;
+}
+.Alert-title {
+  color: inherit;
+  font-size: 1.5em;
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0;
+}
+.Alert-message {
+  font-weight: 300;
+  margin-top: .4em;
+  opacity: .7;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.AuthLayer {
+  position: relative;
+}
+.AuthLayer > * {
+  opacity: 0;
+  transition: opacity 0.3s var(--material-easing);
+}
+.AuthLayer-signedOut {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+/*
+TODO: This style causes layout shifts when the user signs in if they don't
+have overlay scroll bars enabled. Consider removing if it becomes a problem.
+*/
+.isSignedOut .AuthLayer {
+  overflow: hidden;
+  height: calc(50px + var(--vgap-lg));
+}
+.isSignedIn .AuthLayer-signedIn,
+.isSignedOut .AuthLayer-signedOut {
+  opacity: 1;
+  z-index: 1;
+}
+.isSignedOut .AuthLayer-signedIn,
+.isSignedIn .AuthLayer-signedOut {
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: none;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.Banner {
+  background-color: hsl(60, 100%, 95%);
+  box-shadow: 0 0 0.25em rgba(0,0,0,0.2);
+  font-size: 0.9em;
+  padding: 1em var(--hgap);
+}
+@media (min-width: 48em) {
+  .Banner {
+    text-align: center;
+  }
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.Button {
+  border: 0;
+
+  background-color: hsl(218, 88%, 61%);
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+.Button:hover,
+.Button:active,
+.Button:focus {
+  /* background-color: hsl(217, 88%, 52%); */
+  background-color: hsl(218, 88%, 50%);
+}
+.Button[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.Container {
+  padding: 0 var(--hgap);
+}
+.Container > * {
+  margin: var(--vgap-lg) auto;
+  max-width: 48em;
+}
+.Container--alternate {
+  background-color: #fff;
+}
+/*
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.DebugNav {
+  text-align: left;
+  max-width: 42em;
+  margin: 0 auto;
+}
+.DebugNav li {
+  list-style: none;
+}
+.DebugNav a {
+  position: relative;
+  padding: 0.25em 0.25em;
+  display: block;
+  line-height: 1.2;
+  text-decoration: none;
+}
+.DebugNav a:active,
+.DebugNav a:focus,
+.DebugNav a:hover {
+  text-decoration: underline;
+}
+.DebugNav a:before {
+  content: "↓";
+  position: absolute;
+  color: #333;
+  left: -1.5em;
+  font-size: 0.8rem;
+  top: 0.5em;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.Form {
+  border-top: 1px solid hsl(30, 15%, 88%);
+  padding-top: var(--vgap-lg);
+  text-align: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  flex-direction: column;
+}
+.Form label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9em;
+  margin-bottom: 0.4em;
+}
+.Form label > em {
+  color: #777;
+  font-weight: 400;
+}
+.Form input[type="date"],
+.Form input[type="text"],
+.Form select,
+.Form button {
+  display: inline-block;
+  font: inherit;
+  height: 2.5em;
+  padding: 0.5em;
+  width: 100%;
+}
+.Form select[disabled] {
+  color: transparent;
+}
+.Form-field,
+.Form-action {
+  width: 100%;
+}
+@media (min-width: 48em) {
+  .Form-field,
+  .Form-action {
+    max-width: 40em;
+  }
+}
+.Form-field {
+  margin-bottom: 1em;
+}
+.Form-subfield {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 1em;
+}
+.Form-action {
+  margin: 1em 0 0;
+}
+.Form-3col {
+  display: flex;
+  grid-gap: 1em;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.Form--action {
+  font-size: 0.9em;
+  font-style: italic;
+}
+label.Form-advancedAction {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  margin-bottom: 1em;
+}
+.Form-advancedAction > input[type="checkbox"] {
+  margin-right: 0.5em;
+}
+.Form-advancedFields {
+  margin: 1em 0 0;
+  padding: 0.75em .75em 0;
+  background: rgba(0,0,0,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.Icon {
+  display: inherit;
+  fill: currentColor;
+  height: 1.1em;
+  width: 1.1em;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.Intro {
+  margin: var(--vgap-lg) auto 0;
+}
+.Intro-heading {
+  margin: 0;
+}
+.Intro-heading > span {
+  white-space: nowrap;
+}
+.Intro-links {
+  display: flex;
+  font-size: 0.9em;
+  margin: 1rem 0 2.5rem;
+}
+.Intro-link > svg {
+  font-size: 1.2em;
+  margin-right: 0.333em;
+}
+.Intro-link {
+  color: #444!important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1em;
+}
+.Intro-link:last-child {
+  margin: 0;
+}
+@media (min-width: 48em) {
+  .Intro {
+    max-width: 40em;
+  }
+
+  .Intro-heading {
+    text-align: center;
+  }
+
+  .Intro-links {
+    align-items: center;
+    justify-content: center;
+    margin: 1.25rem 0 2.5rem;
+  }
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.Report {
+  width: 72em;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1em 0;
+  opacity: 1;
+  overflow: hidden;
+  text-align: center;
+  transition: opacity 0.2s ease-in-out;
+}
+.isFetchingData .Report {
+  opacity: 0;
+}
+.isSignedOut .Report {
+  display: none;
+}
+.Report-sampleWarning {
+  border: 1px solid hsla(45, 100%, 50%, 0.15);
+  background: hsla(45, 100%, 50%, 0.15);
+  padding: 1em;
+  margin: 1em;
+}
+.Report-heading {
+  color: #777;
+  font-size: 0.9em;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin: 3rem 0;
+  text-transform: uppercase;
+}
+.Report-breakdownHeading {
+  font-size: 2.5em;
+  margin: 0;
+  padding-top: 3rem;
+  border-top: 1px solid #eee;
+  font-weight: 500;
+}
+.Report-metric {
+  border-top: 1px solid #eee;
+  margin: var(--vgap-lg) 0;
+  padding-top: var(--vgap-lg);
+}
+.Report-metricName {
+  margin: 0 0 1.5em;
+}
+.Report-metricShortname {
+  font-size: 4em;
+  font-weight: 500;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  margin: 0;
+}
+.Report-metricFullname {
+  color: #777;
+  text-decoration: none;
+}
+.Report-metricFullname:hover,
+.Report-metricFullname:focus,
+.Report-metricFullname:active {
+  text-decoration: underline;
+}
+.Report-metricFullname > em {
+  color: #777;
+  text-decoration: none!important;
+  font-style: italics;
+}
+.Report-metricSummary {
+  font-size: 1.1em;
+}
+.Report-metricSummaryItem {
+  display: inline-block;
+  margin: 0.5em;
+}
+.Report-metricHistogram,
+.Report-metricTimeline {
+  margin: 4em 0;
+}
+.Report-metricHistogram {
+  height: 500px;
+}
+.Report-metricTimeline {
+  height: 300px;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.Score {
+  border-radius: 4px;
+  padding: 0.4em;
+  text-align: right;
+  white-space: nowrap;
+}
+.Score--good {
+  background-color: hsla(150, 92%, 42%, 0.8);
+}
+.Score--poor {
+  background-color: hsl(4, 100%, 63%, 0.8);
+}
+.Score--ni {
+  background-color: hsl(39, 100%, 50%, 0.8);
+}
+.Score--alt {
+  color: #fff;
+  margin: 0 0.5em;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.SignIn {
+  display: flex;
+  justify-content: center;
+}
+.google-btn {
+  display: flex;
+  width: 200px;
+  height: 40px;
+  background-color: #4285f4;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+}
+.google-btn .google-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #fff;
+}
+.google-btn .google-icon {
+  width: 20px;
+  height: 20px;
+}
+.google-btn .btn-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  color: #fff;
+  font-size: 14px;
+  font-family: "Roboto";
+}
+.google-btn:hover {
+  box-shadow: 0 0 6px #4285f4;
+  cursor: pointer;
+}
+.google-btn:active {
+  background: #1669f2;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.Table {
+  margin: 4em 0;
+  overflow-x: auto;
+}
+.Table > table {
+  border-collapse: collapse;
+  min-width: 42em;
+  width: 100%;
+}
+.Table td,
+.Table th {
+  border-bottom: 1px solid hsla(0, 0%,0%,.1);
+  padding: 0.6rem;
+  text-align: left;
+  vertical-align: middle;
+}
+.Table-dimension {
+  padding: 1em 0.6rem;
+}
+.Table-segment {
+  padding: 1em 0.6rem;
+  width: 22%;
+}
+.Table-metric {
+  text-align: center!important;
+  width: 6em;
+}
+.Table-value {
+  text-align: right!important;
+  white-space: nowrap;
+  width: 6em;
+}
+.Table-debugHeader {
+  border-bottom: 2px solid #000!important;
+  font-size: 1.2em;
+  font-weight: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+}
+.Table-debugMetricHeader {
+  background: rgba(0,0,0,.2);
+  vertical-align: middle!important;
+}
+.Table-debugSegment {
+  background: rgba(0,0,0,.1);
+  vertical-align: top!important;
+}
+.Table-debugSpacer {
+  min-width: 10em;
+}
+/*
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.TopBar {
+  align-items: center;
+  background: #333;
+  display: grid;
+  grid-template-columns: auto  1fr;
+  grid-template-areas:
+    "logo title"
+    "nav  nav";
+}
+.TopBar-logo {
+  grid-area: logo;
+  font-size: 2.25em;
+  padding: var(--hgap) 1.25rem var(--hgap) var(--hgap);
+}
+.TopBar-title {
+  grid-area: title;
+  color: #eee;
+  font-weight: 400;
+  font-size: 1.75em;
+  line-height: 1;
+  margin: var(--hgap) 0;
+  transform: translateY(2px);
+}
+.TopBar-links {
+  grid-area: nav;
+  background: #fff;
+  padding: 1em var(--hgap);
+  box-shadow: 0 0 0.25em rgba(0,0,0,0.2);
+  font-size: 0.9em;
+}
+.TopBar-links > a {
+  color: #333;
+  margin-right: 1em;
+  white-space: nowrap;
+}
+@media (min-width: 48em) {
+  .TopBar {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "logo title nav";
+  }
+  .TopBar-links {
+    align-items: center;
+    background: 0;
+    display: flex;
+    font-size: 1em;
+    margin-top: 0;
+  }
+  .TopBar-links > a {
+    color: #eee;
+    padding: 0.5em 0;
+    margin-right: 1em;
+  }
+  .TopBar-links > a:last-child {
+    min-width: 4.5em; /* To prevent layout shifts when toggling the text */
+    margin-right: 0;
+  }
+}
