@@ -19,6 +19,7 @@
     <meta charset="utf-8" />
     <title>Web Vitals Report</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="https://www.wpspeedfix.com/favicon.ico">
     <link rel="stylesheet" href="./main.css" />
     <link
       rel="stylesheet"
@@ -29,15 +30,16 @@
 
   <body>
     <header id="header" class="TopBar">
-      <span class="TopBar-logo">
+      <!-- <span class="TopBar-logo">
         <svg class="Icon" viewBox="0 0 120 100" style="">
-          <use href="#icon-web-vitals"></use>
+          <use href="https://www.wpspeedfix.com/wp-content/uploads/2021/04/wp-speed-fix-logo.svg"></use>
         </svg>
-      </span>
-      <h1 class="TopBar-title">Web Vitals Report</h1>
+      </span> -->
+      <img src="https://www.wpspeedfix.com/wp-content/uploads/2021/04/wp-speed-fix-logo.svg" width="100%" height="50" />
+      <h1 class="TopBar-title">WPSpeedFix Core Web Vitals Reporting Tool</h1>
       <nav class="TopBar-links needsAuth">
-        <a href="https://policies.google.com/terms">Terms</a>
-        <a href="https://policies.google.com/privacy">Privacy Policy</a>
+        <a href="https://www.wpspeedfix.com/terms">Terms</a>
+        <a href="https://www.wpspeedfix.com/privacy-policy">Privacy Policy</a>
         <a id="signin-toggle" href="#">Sign In</a>
       </nav>
     </header>
@@ -57,50 +59,23 @@
     <main id="main">
       <div class="Container">
         <section class="Intro">
-          <h2 class="Intro-heading">
-            Create your <span>Web Vitals report</span>
-          </h2>
-          <nav class="Intro-links">
-            <a
-              class="Intro-link"
-              target="_blank"
-              rel="noopener"
-              href="https://github.com/GoogleChromeLabs/web-vitals-report"
-            >
-              <svg class="Icon" viewBox="0 0 32 32">
-                <use href="#icon-github"></use>
-              </svg>
-              How it works
-            </a>
-            <a
-              class="Intro-link"
-              target="_blank"
-              rel="noopener"
-              href="http://twitter.com/intent/tweet?text=Create%20a%20Web%20Vitals%20report%20using%20your%20Google%20Analytics%20data%20at%3A&url=https%3A%2F%2Fweb-vitals-report.web.app"
-            >
-              <svg class="Icon" viewBox="0 0 32 32">
-                <use href="#icon-twitter"></use>
-              </svg>
-              Spread the word
-            </a>
-          </nav>
           <p>
             This tool can be used to create a Web Vitals report for any site
             that uses the<br /><a
-              href="https://github.com/GoogleChrome/web-vitals"
-              >web-vitals</a
+            href="https://github.com/GoogleChrome/web-vitals"
+            >web-vitals</a
             >
             JavaScript library to
             <a
-              href="https://github.com/GoogleChrome/web-vitals#send-the-results-to-google-analytics"
-              >send data to Google Analytics.</a
+            href="https://github.com/GoogleChrome/web-vitals#send-the-results-to-google-analytics"
+            >send data to Google Analytics.</a
             >
           </p>
           <p>
             This report will display a histogram and timeline of each Web Vitals
             metric, and it will also let you compare results across different
             <a href="https://support.google.com/analytics/answer/3123951"
-              >segments</a
+            >segments</a
             >
             to help you better understand how these metrics correlate with your
             business goals. <b></b>🔍
@@ -108,15 +83,18 @@
           <p>
             For additional usage instruction, refer to the
             <a href="https://github.com/GoogleChromeLabs/web-vitals-report"
-              >project README</a
+            >project README</a
             >
             on GitHub. <b>📖</b>
           </p>
+          <h2 class="Intro-heading">
+            Create your <span>Web Vitals report</span>
+          </h2>
         </section>
       </div>
 
-      <div class="SignIn" id="signin-button">
-        <div class="google-btn">
+      <div class="SignIn">
+        <div class="google-btn" id="signin-button">
           <div class="google-icon-wrapper">
             <img
               class="google-icon"

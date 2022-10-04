@@ -96,6 +96,9 @@ b {
   display: flex;
   justify-content: center;
 }
+.SignIn {
+  margin-top: 20px;
+}
 #Countrycounts,
 #Pagecounts {
   margin-top: 10px;
@@ -835,7 +838,8 @@ label.Form-advancedAction {
   font-size: 1.75em;
   line-height: 1;
   margin: var(--hgap) 0;
-  transform: translateY(2px);
+  margin-left: 10px;
+  /* transform: translateY(2px); */
 }
 .TopBar-links {
   grid-area: nav;
