@@ -1916,7 +1916,7 @@ const REPORTING_API_URL =
 const PROFILE_URL = 
     'https://gmail.googleapis.com/gmail/v1/users/me/profile';
 
-const REPORT_REQUEST_URL = 'http://localhost:8000';
+const REPORT_REQUEST_URL = 'https://web-vital-report-backend.herokuapp.com';
 
 
 const PAGE_SIZE = 100000;
