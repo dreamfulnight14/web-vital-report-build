@@ -36,25 +36,13 @@
         </svg>
       </span> -->
       <img src="https://www.wpspeedfix.com/wp-content/uploads/2021/04/wp-speed-fix-logo.svg" width="100%" height="50" />
-      <h1 class="TopBar-title">WPSpeedFix Core Web Vitals Reporting Tool</h1>
+      <h1 class="TopBar-title">1WPSpeedFix Core Web Vitals Reporting Tool</h1>
       <nav class="TopBar-links needsAuth">
         <a href="https://www.wpspeedfix.com/terms">Terms</a>
         <a href="https://www.wpspeedfix.com/privacy-policy">Privacy Policy</a>
         <a id="signin-toggle" href="#">Sign In</a>
       </nav>
     </header>
-    <aside class="Banner">
-      <strong>Note: </strong> this tool does not yet support
-      <a
-        href="https://www.blog.google/products/marketingplatform/analytics/new_google_analytics/"
-        >Google Analytics 4 (GA4)</a
-      >, as the GA4 APIs are still in
-      <a
-        href="https://developers.google.com/analytics/devguides/reporting/data/v1"
-        >alpha preview</a
-      >
-      and some required features are missing.
-    </aside>
 
     <main id="main">
       <div class="Container">
@@ -119,7 +107,7 @@
 
           <h2 class="Report-heading">Report</h2>
 
-          <div class="Report-metric">
+          <div class="Report-metric" id="lcp">
             <header class="Report-metricName">
               <h3 class="Report-metricShortname">LCP</h3>
               <a href="https://web.dev/lcp/" class="Report-metricFullname">
@@ -131,7 +119,7 @@
             <div id="timeline-LCP" class="Report-metricTimeline"></div>
           </div>
 
-          <div class="Report-metric">
+          <div class="Report-metric" id="fid">
             <header class="Report-metricName">
               <h3 class="Report-metricShortname">FID</h3>
               <a href="https://web.dev/fid/" class="Report-metricFullname">
@@ -143,7 +131,7 @@
             <div id="timeline-FID" class="Report-metricTimeline"></div>
           </div>
 
-          <div class="Report-metric">
+          <div class="Report-metric" id="cls">
             <header class="Report-metricName">
               <h3 class="Report-metricShortname">CLS</h3>
               <a href="https://web.dev/cls/" class="Report-metricFullname">
@@ -155,7 +143,7 @@
             <div id="timeline-CLS" class="Report-metricTimeline"></div>
           </div>
 
-          <div class="Report-metric">
+          <div class="Report-metric" id="fcp">
             <header class="Report-metricName">
               <h3 class="Report-metricShortname">FCP</h3>
               <a href="https://web.dev/fcp/" class="Report-metricFullname">
@@ -167,7 +155,7 @@
             <div id="timeline-FCP" class="Report-metricTimeline"></div>
           </div>
 
-          <div class="Report-metric">
+          <div class="Report-metric" id="ttfb">
             <header class="Report-metricName">
               <h3 class="Report-metricShortname">TTFB</h3>
               <a href="https://web.dev/ttfb/" class="Report-metricFullname">
@@ -296,7 +284,7 @@
       </defs>
     </svg>
     <script type="module" src="./main.js"></script>
-    <script async defer src="https://accounts.google.com/gsi/client"></script>
+    <script id='googleapis' async defer src="https://accounts.google.com/gsi/client"></script>
     <script defer src="https://code.highcharts.com/highcharts.js"></script>
     <script
       defer
