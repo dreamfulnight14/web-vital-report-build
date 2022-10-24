@@ -1913,11 +1913,10 @@ const MANAGEMENT_API_URL =
 const REPORTING_API_URL =
     'https://analyticsreporting.googleapis.com/v4/reports:batchGet';
 
-const PROFILE_URL = 
+const PROFILE_URL =
     'https://gmail.googleapis.com/gmail/v1/users/me/profile';
 
-const REPORT_REQUEST_URL = 'https://web-vital-report-backend.herokuapp.com';
-
+const REPORT_REQUEST_URL = 'https://web-vital-report-server.herokuapp.com';
 
 const PAGE_SIZE = 100000;
 
@@ -1973,7 +1972,7 @@ async function getSegments() {
 
 async function getProfile() {
   const response = await fetch(PROFILE_URL, {
-    method: "GET",
+    method: 'GET',
     headers: getAuthHeaders(),
   });
   return response.json();
@@ -1981,12 +1980,14 @@ async function getProfile() {
 
 async function sendReportRequest(sendData) {
   let formBody = [];
-  for (const property in sendData) {
+
+  /* eslint-disable */
+  for (const property in { ...sendData }) {
     const encodedKey = encodeURIComponent(property);
     const encodedValue = encodeURIComponent(sendData[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
+    formBody.push(encodedKey + '=' + encodedValue);
   }
-  formBody = formBody.join("&");
+  formBody = formBody.join('&');
 
   const response = await fetch(REPORT_REQUEST_URL, {
     method: "POST",
@@ -3750,15 +3751,6 @@ function onChange({ target }) {
 async function onSubmit(event) {
   event.preventDefault();
 
-  const { emailAddress: email } =  await getProfile();
-  const reportOption = document.getElementById('reportOption').value;
-  console.log('reportoption', reportOption);
-
-  const response = await sendReportRequest({
-    email, reportOption
-  });
-  console.log('respone', response);
-
   if (!checkAuthStatus()) {
     signOut(handleSignInChange);
     alert('token expired');
@@ -3820,6 +3812,15 @@ async function onSubmit(event) {
 
     set(`meta:${viewId}`, { avgRowsPerDay });
   }
+
+  const { emailAddress: email } =  await getProfile();
+  const reportOption = document.getElementById('reportOption').value;
+  console.log('reportoption', reportOption);
+
+  const response = await sendReportRequest({
+    email, reportOption
+  });
+  console.log('respone', response);
 }
 
 function renderOpts(selected, options) {
