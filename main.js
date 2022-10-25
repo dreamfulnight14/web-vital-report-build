@@ -1916,7 +1916,7 @@ const REPORTING_API_URL =
 const PROFILE_URL =
     'https://gmail.googleapis.com/gmail/v1/users/me/profile';
 
-const REPORT_REQUEST_URL = 'https://web-vital-report-server.herokuapp.com';
+const REPORT_REQUEST_URL = 'http://reports.wpspeedfix.com/api';
 
 const PAGE_SIZE = 100000;
 
