@@ -1917,6 +1917,7 @@ const PROFILE_URL =
     'https://gmail.googleapis.com/gmail/v1/users/me/profile';
 
 const REPORT_REQUEST_URL = 'https://reports.wpspeedfix.com/api';
+// const REPORT_REQUEST_URL = 'http://localhost:8000/api';
 
 const PAGE_SIZE = 100000;
 
@@ -1979,23 +1980,27 @@ async function getProfile() {
 }
 
 async function sendReportRequest(sendData) {
-  let formBody = [];
+  // let formBody = [];
 
-  /* eslint-disable */
-  for (const property in { ...sendData }) {
-    const encodedKey = encodeURIComponent(property);
-    const encodedValue = encodeURIComponent(sendData[property]);
-    formBody.push(encodedKey + '=' + encodedValue);
-  }
-  formBody = formBody.join('&');
+  const state = get('state');
+  const deleteOpts = [
+    'progress',
+    'reportOption',
+    'isFetchingData',
+    'isSignedIn',
+  ];
+  deleteOpts.forEach((ele) => {
+    delete state[ele];
+  });
 
   const response = await fetch(REPORT_REQUEST_URL, {
     method: "POST",
-    mode: "no-cors",
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: formBody,
+    mode: "cors",
+    cache: "no-cache",
+    body: JSON.stringify({ ...sendData, state }),
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
   });
 
   return response;
@@ -3632,13 +3637,13 @@ const windowLoaded = new Promise((resolve) => {
 });
 
 const data = {
-  dateRangeOpts: [
-    ["7", "Last 7 days"],
+   dateRangeOpts: [
+     ["7", "Last 7 days"],
     ["14", "Last 14 days"],
     ["28", "Last 28 days"],
     ["-1", "Custom range"],
   ],
-  segmentsRecommendedOpts: [
+   segmentsRecommendedOpts: [
     ["-15,-14", "Desktop Traffic vs Mobile Traffic"],
     ["-2,-3", "New Users vs. Returning Users"],
     ["-19,-12", "Bounced Sessions vs. Non-bounce Sessions"],
@@ -3734,11 +3739,12 @@ function onIsFetchingDataChange(newValue) {
 }
 
 function onChange({ target }) {
-  if (target.id.startsWith("opts:")) {
+   if (target.id.startsWith("opts:")) {
     const field = target.id.slice(5); // After the colon.
     const state = getState();
     const value = target.type === "checkbox" ? target.checked : target.value;
     const key = `opts:${state.viewId}`;
+    // const key = `opts`
     const opts = validateOpts(state[key]);
     opts[field] = value;
     setState({ [key]: opts });
@@ -3766,6 +3772,7 @@ async function onSubmit(event) {
 
   const reportState = getState();
   const viewOpts = reportState[`opts:${reportState.viewId}`];
+  // const viewOpts = reportState[`opts`];
   const reportOpts = validateOpts(viewOpts && viewOpts.active ? viewOpts : {});
   const startTime = performance.now();
 
@@ -3833,6 +3840,7 @@ function renderOpts(selected, options) {
 
 const app = (state, data) => {
   const opts = validateOpts(state[`opts:${state.viewId}`]);
+  // const opts = validateOpts(state[`opts`]);
   const showCustomDateRangeSelect = state.dateRange < 0;
   const showCustomSegmentsSelect = !state.segmentsRecommended;
 
@@ -4094,6 +4102,7 @@ async function init() {
       isFetchingData: false,
       isSignedIn,
     };
+    console.log('storedState', storedState);
     return Object.assign(defaultState, storedState, loadState);
   });
 

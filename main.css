@@ -636,7 +636,8 @@ label.Form-advancedAction {
 }
 .Report-metricHistogram,
 .Report-metricTimeline {
-  margin: 4em 0;
+  margin: 3em 0;
+  padding: 30px;
 }
 .Report-metricHistogram {
   height: 500px;
@@ -753,6 +754,7 @@ label.Form-advancedAction {
 .Table {
   margin: 4em 0;
   overflow-x: auto;
+  padding: 40px;
 }
 .Table > table {
   border-collapse: collapse;
