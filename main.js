@@ -1717,9 +1717,9 @@ let client;
 
 function checkAuthStatus() {
   // This is set on the window in `index.html`.
-  console.log("diff", get('expireAt'), Date.now(), get('expireAt') - Date.now()); 
-  if (Object.keys(get("token")).length) {
-    return get("expireAt") < Date.now() ? false : true;
+  console.log('diff', get('expireAt'), Date.now(), get('expireAt') - Date.now());
+  if (Object.keys(get('token')).length) {
+    return get('expireAt') < Date.now() ? false : true;
   } else {
     return false;
   }
@@ -1727,33 +1727,53 @@ function checkAuthStatus() {
 
 // Can only be called if the user is signed in.
 function getAccessToken() {
-  return get("token");
+  return get('token');
 }
 
 function signIn() {
-  client.requestAccessToken();
+  client.requestCode();
 }
 
 async function signOut(handleSignInChange) {
-  localStorage.removeItem("token");
+  localStorage.removeItem('token');
   handleSignInChange(false);
 }
 
 function signInCallback(handleSignInChange) {
-  client = google.accounts.oauth2.initTokenClient({
-    client_id: clientId,
-    scope: "https://www.googleapis.com/auth/analytics.readonly \
-            https://www.googleapis.com/auth/gmail.readonly",
-    callback: (response) => {
-      if (response.error) {
-        console.log(response.error);
-      } else {
-        set("token", response.access_token);
-        set("expireAt", Date.now() + Number(response.expires_in) * 1000);
-        handleSignInChange(true);
+  // client = google.accounts.oauth2.initTokenClient({
+  //   client_id: clientId,
+  //   scope: 'https://www.googleapis.com/auth/analytics.readonly \
+  //           https://www.googleapis.com/auth/gmail.readonly',
+  //   callback: (response) => {
+  //     if (response.error) {
+  //       console.log(response.error);
+  //     } else {
+  //       console.log('response => ', response);
+  //       set('token', response.access_token);
+  //       set('expireAt', Date.now() + Number(response.expires_in) * 1000);
+  //       handleSignInChange(true);
+  //     }
+  //   },
+  // });
+  try {
+    client = google.accounts.oauth2.initCodeClient({
+      client_id: clientId,
+      scope: 'https://www.googleapis.com/auth/analytics.readonly \
+      https://www.googleapis.com/auth/gmail.readonly',
+      callback: async (response) => {
+        if (response.error) {
+          console.log(response.error);
+        } else {
+          const result = await handleCode({ code: response.code });
+          set('token', await result.json());
+          set('expireAt', Date.now() + 3599 * 1000);
+          handleSignInChange(true);
+        }
       }
-    },
-  });
+    });
+  } catch (error) {
+    alert(error.message);
+  }
 }
 
 /*
@@ -1914,8 +1934,8 @@ const REPORTING_API_URL =
 
 const PROFILE_URL = "https://gmail.googleapis.com/gmail/v1/users/me/profile";
 
-const REPORT_REQUEST_URL = "https://reports.wpspeedfix.com/api";
-// const REPORT_REQUEST_URL = 'http://localhost:8000/api';
+// const REPORT_REQUEST_URL = "https://reports.wpspeedfix.com/api";
+const REPORT_REQUEST_URL = 'http://localhost:8000/api';
 
 const PAGE_SIZE = 100000;
 
@@ -1975,6 +1995,19 @@ async function getProfile() {
     headers: getAuthHeaders(),
   });
   return response.json();
+}
+
+async function handleCode(sendData) {
+  const response = await fetch(REPORT_REQUEST_URL + '/oauth2Code', {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    body: JSON.stringify(sendData),
+    headers: new Headers({
+      "Content-Type": "application/json",
+    }),
+  });
+  return response;
 }
 
 async function sendReportRequest(sendData) {
