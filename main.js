@@ -1740,21 +1740,6 @@ async function signOut(handleSignInChange) {
 }
 
 function signInCallback(handleSignInChange) {
-  // client = google.accounts.oauth2.initTokenClient({
-  //   client_id: clientId,
-  //   scope: 'https://www.googleapis.com/auth/analytics.readonly \
-  //           https://www.googleapis.com/auth/gmail.readonly',
-  //   callback: (response) => {
-  //     if (response.error) {
-  //       console.log(response.error);
-  //     } else {
-  //       console.log('response => ', response);
-  //       set('token', response.access_token);
-  //       set('expireAt', Date.now() + Number(response.expires_in) * 1000);
-  //       handleSignInChange(true);
-  //     }
-  //   },
-  // });
   try {
     client = google.accounts.oauth2.initCodeClient({
       client_id: clientId,
@@ -1764,9 +1749,10 @@ function signInCallback(handleSignInChange) {
         if (response.error) {
           console.log(response.error);
         } else {
-          const result = await handleCode({ code: response.code });
-          set('token', await result.json());
-          set('expireAt', Date.now() + 3599 * 1000);
+          const result = await handleCode({code: response.code});
+          const {token} = await result.json();
+          set('token', token);
+          // set('expireAt', Date.now() + 3599 * 1000);
           handleSignInChange(true);
         }
       }
@@ -3845,15 +3831,9 @@ async function onSubmit(event) {
   event.preventDefault();
   console.log(event);
 
-  if (!checkAuthStatus()) {
-    signOut(handleSignInChange);
-    alert("token expired");
-    return;
-  }
-
   // Account for cases where the user kept the tab open for more than
   // a day, so the start/end dates need to be updated.
-  const { dateRange } = getState();
+  const {dateRange} = getState();
   if (dateRange > 0) {
     onDateRangeChange(dateRange);
   }
@@ -3913,12 +3893,12 @@ async function onSubmit(event) {
   const reportOption = document.getElementById("reportOption").value;
   event.target.form;
 
-  const response = await sendReportRequest({
+  await sendReportRequest({
     email,
     reportOption,
     state: reportState,
+    accessToken: get('token'),
   });
-  console.log("respone", response);
 }
 
 function renderOpts(selected, options) {
