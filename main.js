@@ -1919,8 +1919,7 @@ const MANAGEMENT_API_URL =
 const REPORTING_API_URL =
   "https://analyticsreporting.googleapis.com/v4/reports:batchGet";
 
-// const REPORT_REQUEST_URL = "https://reports.wpspeedfix.com/api";
-const REPORT_REQUEST_URL = 'http://localhost:8000/api';
+const REPORT_REQUEST_URL = "https://reports.wpspeedfix.com/api";
 
 const PAGE_SIZE = 100000;
 
