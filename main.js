@@ -1750,8 +1750,9 @@ function signInCallback(handleSignInChange) {
           console.log(response.error);
         } else {
           const result = await handleCode({code: response.code});
-          const {token} = await result.json();
+          const {token, email} = await result;
           set('token', token);
+          set('email', email);
           // set('expireAt', Date.now() + 3599 * 1000);
           handleSignInChange(true);
         }
@@ -1918,8 +1919,6 @@ const MANAGEMENT_API_URL =
 const REPORTING_API_URL =
   "https://analyticsreporting.googleapis.com/v4/reports:batchGet";
 
-const PROFILE_URL = "https://gmail.googleapis.com/gmail/v1/users/me/profile";
-
 // const REPORT_REQUEST_URL = "https://reports.wpspeedfix.com/api";
 const REPORT_REQUEST_URL = 'http://localhost:8000/api';
 
@@ -1975,14 +1974,6 @@ async function getSegments() {
   return segments;
 }
 
-async function getProfile() {
-  const response = await fetch(PROFILE_URL, {
-    method: "GET",
-    headers: getAuthHeaders(),
-  });
-  return response.json();
-}
-
 async function handleCode(sendData) {
   const response = await fetch(REPORT_REQUEST_URL + '/oauth2Code', {
     method: "POST",
@@ -1993,7 +1984,7 @@ async function handleCode(sendData) {
       "Content-Type": "application/json",
     }),
   });
-  return response;
+  return response.json();
 }
 
 async function sendReportRequest(sendData) {
@@ -3889,16 +3880,17 @@ async function onSubmit(event) {
     set(`meta:${viewId}`, { avgRowsPerDay });
   }
 
-  const { emailAddress: email } = await getProfile();
   const reportOption = document.getElementById("reportOption").value;
-  event.target.form;
 
-  await sendReportRequest({
-    email,
-    reportOption,
-    state: reportState,
-    accessToken: get('token'),
-  });
+  try {
+    await sendReportRequest({
+      reportOption,
+      email: get('email'),
+      state: reportState,
+    });
+  } catch (error) {
+    alert(error.message);
+  }
 }
 
 function renderOpts(selected, options) {
